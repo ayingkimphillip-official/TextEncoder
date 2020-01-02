@@ -34,7 +34,7 @@ class Encoder
         'x',     //24
         'y',     //25
         'z',     //26
-        '.',     //27
+        ' ',     //27
         '.',     //28
         '.',     //29
         '.',     //30
@@ -74,40 +74,42 @@ class Encoder
         return EncodingTable[EncoderToNumber()];
     }
 
-    public int EncoderToInt(char input)
+    public int ConvertCharacterToNumber(char input)
     {
-        int InputCharacter = 0;
+        int NumberOfCharacter = 0;
 
         for (int i = 0; i < EncodingTable.Length; i++)
         {
             if (EncodingTable[i] == input)
             {
-                InputCharacter = i;
+                NumberOfCharacter = i;
                 Console.WriteLine($"Encoding Table {i}: {EncodingTable[i]}");
             }
         }
-
-        return InputCharacter;
+        return NumberOfCharacter;
     }
 
-    public void StringToBinary(string input)
+    public string ConvertToBinaryStrings(string input)
     {
         int[] inputString = new int[input.Length];
         bool[] inputStringToBinary = new bool[input.Length];
+        string[] variables1 = new string[input.Length];
+        string BinaryStrings;
         
         for (int i = 0; i < input.Length; i++)
         {
-            inputString[i] = EncoderToInt(input[i]);
-            Console.WriteLine($"Input String {i} converted to number: {inputString[i]}");
-            NumberToBinary(inputString[i]);
+            inputString[i] = ConvertCharacterToNumber(input[i]);
+            variables1[i] = ConvertNumbersToBinaryStrings(inputString[i]);
         }
+        BinaryStrings = string.Join(" ", variables1);
+        return BinaryStrings;
     }
-    public void NumberToBinary(int InputNumber)
+    public string ConvertNumbersToBinaryStrings(int InputNumber)
     {
         bool[] TextEncoderValues = new bool[MAXIMUM_BITS];
         byte[] BinaryNumbersHolder = new byte[MAXIMUM_BITS];
-        byte[] BinaryNumbers = new byte[MAXIMUM_BITS];
-        string variable;
+        string[] variable = new string[MAXIMUM_BITS];
+        string variables;
 
         for (int i = TextEncoderValues.Length - 1; i >= 0; i--)
         {
@@ -120,9 +122,9 @@ class Encoder
         }
         for (int i = 0; i < TextEncoderValues.Length; i++)
         {
-            Console.WriteLine($"BinayNumbersHolder {i}: {BinaryNumbersHolder[i]}");
+            variable[i] = BinaryNumbersHolder[i].ToString();
         }
-        variable = BinaryNumbersHolder.ToString();
-        Console.WriteLine($"String of BinaryNumbersHolder: {variable}");
+        variables = string.Join("", variable);
+        return variables;
     }
 }
