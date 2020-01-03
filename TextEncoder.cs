@@ -91,25 +91,24 @@ class Encoder
 
     public string ConvertToBinaryStrings(string input)
     {
-        int[] inputString = new int[input.Length];
-        bool[] inputStringToBinary = new bool[input.Length];
-        string[] variables1 = new string[input.Length];
-        string BinaryStrings;
+        int[] InputString = new int[input.Length];
+        string[] InputStringToBinaryHolder = new string[input.Length];
+        string InputStringToBinary;
         
         for (int i = 0; i < input.Length; i++)
         {
-            inputString[i] = ConvertCharacterToNumber(input[i]);
-            variables1[i] = ConvertNumbersToBinaryStrings(inputString[i]);
+            InputString[i] = ConvertCharacterToNumber(input[i]);
+            InputStringToBinaryHolder[i] = ConvertNumbersToBinaryStrings(InputString[i]);
         }
-        BinaryStrings = string.Join(" ", variables1);
-        return BinaryStrings;
+        InputStringToBinary = string.Join(" ", InputStringToBinaryHolder);
+        return InputStringToBinary;
     }
     public string ConvertNumbersToBinaryStrings(int InputNumber)
     {
         bool[] TextEncoderValues = new bool[MAXIMUM_BITS];
         byte[] BinaryNumbersHolder = new byte[MAXIMUM_BITS];
-        string[] variable = new string[MAXIMUM_BITS];
-        string variables;
+        string[] BinaryNumbersToStringHolder = new string[MAXIMUM_BITS];
+        string BinaryNumbersToString;
 
         for (int i = TextEncoderValues.Length - 1; i >= 0; i--)
         {
@@ -122,9 +121,9 @@ class Encoder
         }
         for (int i = 0; i < TextEncoderValues.Length; i++)
         {
-            variable[i] = BinaryNumbersHolder[i].ToString();
+            BinaryNumbersToStringHolder[i] = BinaryNumbersHolder[i].ToString();
         }
-        variables = string.Join("", variable);
-        return variables;
+        BinaryNumbersToString = string.Join("", BinaryNumbersToStringHolder);
+        return BinaryNumbersToString;
     }
 }
