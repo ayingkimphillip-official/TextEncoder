@@ -6,22 +6,6 @@ namespace TextEncoder
     {
         static void Main(string[] args)
         {
-            Console.Clear();
-            Console.WriteLine("Please input number to be converted to binary: ");
-            int InputNumber = int.Parse(Console.ReadLine());
-            var Encoder = new Encoder(InputNumber);
-
-            Console.WriteLine($"Input Number is: {Encoder.EncoderToNumber()}");
-            Console.WriteLine($"The Letter for that number is: {Encoder.EncoderToChar()}");
-            Console.ReadKey();
-
-            Console.Clear();
-            Console.WriteLine("Please input character to be converted to binary: ");
-            char InputCharacter = char.Parse(Console.ReadLine());
-            var CharacterToNumber = Encoder.ConvertCharacterToNumber(InputCharacter);
-            Console.WriteLine($"That character's equivalent to number is: {CharacterToNumber}");
-            Console.ReadKey();
-
             bool ContinueLoop = true;
             while(ContinueLoop)
             {
@@ -33,10 +17,11 @@ namespace TextEncoder
                 {
                     case "1":
                         Console.Clear();
+                        var Encoder = new Encoder();
                         Console.WriteLine($"Please input a string: ");
                         var InputString = Console.ReadLine();
                         var BinaryStrings = Encoder.ConvertToBinaryStrings(InputString);
-                        Console.WriteLine($"The Binary Combination of the string is: {BinaryStrings}");
+                        Console.WriteLine($"The Binary Combination of the Input String is: {BinaryStrings}");
                         Console.ReadKey();
                         break;
                     case "2":

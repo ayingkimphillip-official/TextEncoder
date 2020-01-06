@@ -4,7 +4,6 @@ class Encoder
 {
     private const int MAXIMUM_BITS = 5;
     private bool[] TextEncoderValuesHolder = new bool[MAXIMUM_BITS];
-    // private bool[] TextEncoderValues = new bool[MAXIMUM_BITS];
     private char[] EncodingTable = new char[]
     {
         (char)0, //0
@@ -36,42 +35,29 @@ class Encoder
         'z',     //26
         ' ',     //27
         '.',     //28
-        '.',     //29
-        '.',     //30
-        '.',     //31
+        ',',     //29
+        '!',     //30
+        '?',     //31
     };
 
-    public Encoder(int InputNumber)
-    {
-        for (int i = 0; i < TextEncoderValuesHolder.Length; i++)
-        {
-            if (InputNumber % 2 == 1)
-            {
-                TextEncoderValuesHolder[i] = true;
-            }
-            InputNumber = InputNumber / 2;
-            Console.WriteLine($"TextEncoderValuesHolder {i}: {TextEncoderValuesHolder[i]}");
-        }
-    }
+    public Encoder() { }
 
-    public int EncoderToNumber()
+    public string ConvertToBinaryStrings(string input)
     {
-        int InputNumber = 0;
-        int power = 0;
-        for (int i = 0; i < TextEncoderValuesHolder.Length; i++)
-        {
-            if (TextEncoderValuesHolder[i] == true)
-            {
-                InputNumber += (int)Math.Pow(2, power);
-            }
-            power++;
-        }
-        return InputNumber;
-    }
+        int[] InputStringToNumberHolder = new int[input.Length];
+        string[] InputStringToBinaryHolder = new string[input.Length];
+        string InputStringToNumber;
+        string InputStringToBinary;
 
-    public char EncoderToChar()
-    {
-        return EncodingTable[EncoderToNumber()];
+        for (int i = 0; i < input.Length; i++)
+        {
+            InputStringToNumberHolder[i] = ConvertCharacterToNumber(input[i]);
+            InputStringToBinaryHolder[i] = ConvertNumbersToBinaryStrings(InputStringToNumberHolder[i]);
+        }
+        InputStringToNumber = string.Join(" ", InputStringToNumberHolder);
+        InputStringToBinary = string.Join(" ", InputStringToBinaryHolder);
+        Console.WriteLine($"Input String to Number(s): {InputStringToNumber}");
+        return InputStringToBinary;
     }
 
     public int ConvertCharacterToNumber(char input)
@@ -83,26 +69,11 @@ class Encoder
             if (EncodingTable[i] == input)
             {
                 NumberOfCharacter = i;
-                Console.WriteLine($"Encoding Table {i}: {EncodingTable[i]}");
             }
         }
         return NumberOfCharacter;
     }
 
-    public string ConvertToBinaryStrings(string input)
-    {
-        int[] InputString = new int[input.Length];
-        string[] InputStringToBinaryHolder = new string[input.Length];
-        string InputStringToBinary;
-        
-        for (int i = 0; i < input.Length; i++)
-        {
-            InputString[i] = ConvertCharacterToNumber(input[i]);
-            InputStringToBinaryHolder[i] = ConvertNumbersToBinaryStrings(InputString[i]);
-        }
-        InputStringToBinary = string.Join(" ", InputStringToBinaryHolder);
-        return InputStringToBinary;
-    }
     public string ConvertNumbersToBinaryStrings(int InputNumber)
     {
         bool[] TextEncoderValues = new bool[MAXIMUM_BITS];
